@@ -36,4 +36,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+    
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('questions');
+    }
+    
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+    
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+    
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    public function is_following($userId)
+    {
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
 }
