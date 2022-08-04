@@ -18,6 +18,9 @@ Route::get('/', function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::post('icon', 'UsersController@update');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.get');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
-Route::get('logout', 'Auth\LoginController@login')->name('logout.get');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+

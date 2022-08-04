@@ -4,8 +4,13 @@
     <div class='text-center mb-5 mt-5'>
         <h1>新規登録</h1>
     </div>
+ 
     <div>
-        {!! Form::open(['route' => 'signup.post'])!!}
+        {!! Form::open(['route' => 'signup.post', 'files' => true]) !!}
+            <div class='form-group row mb-5'>
+                {!! Form::file('image')!!}
+            </div>
+                
             <div class='form-group row mb-5'>
                 <div class='col-sm-2'>
                     {!! Form::label('name', 'ニックネーム')!!}
