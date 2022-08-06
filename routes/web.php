@@ -24,13 +24,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user/{id}'], function () {
         Route::post('follow', 'UserFollowController@store')->name('user.follow');
         Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+        Route::get('myQuestion', 'QuestionsController@myQuestion')->name('questions.myQuestion');
     });
     // Route::get('users/mypage', function () {
     //     dd(true);
     // });
     Route::resource('users' , 'UsersController');
     Route::resource('questions', 'QuestionsController', ['only' => ['create', 'store', 'destroy']]);
-    Route::get('questions/{id}', 'QuestionsController@followings')->name('questions.followings');
+    Route::get('followings', 'QuestionsController@followings')->name('questions.followings');
     Route::resource('answers', 'AnswersController', ['only' => ['index', 'create', 'store', 'destroy']]);
 });
 

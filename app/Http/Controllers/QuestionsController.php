@@ -69,4 +69,22 @@ class QuestionsController extends Controller
                 return view('questions.followings');
         }
     }
+    
+    public function myQuestion()
+    {
+        $data = [];
+        
+        if(\Auth::check()){
+            $user = \Auth::user();
+            
+            $questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'questions' => $questions,
+                ];
+                
+                return view('questions.myQuestion');
+        }
+    }
 }
