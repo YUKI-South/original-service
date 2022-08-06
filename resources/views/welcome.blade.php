@@ -2,14 +2,8 @@
 
 @section('content')
     @if(Auth::check())
+        @include('questions.questions')
         {!! link_to_route('logout.get', 'ログアウト', [], ['class' => 'btn btn-sm btn-outline-danger'])!!}
-        <div class='mb-5'>
-            <form action='{{ action('UsersController@create')}}' method='post' enctype='multipart/form-data'>
-                <input type='file' name='image'>
-                {{ csrf_field() }}
-                <input type='submit' value='アップロード'>
-            </form>
-        </div>
     @else
         <div class='row'>
             <div class='col-sm-2 offset-sm-10'>

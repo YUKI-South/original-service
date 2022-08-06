@@ -44,7 +44,7 @@ class User extends Authenticatable
     
     public function loadRelationshipCounts()
     {
-        $this->loadCount('questions');
+        $this->loadCount(['questions', 'followings', 'followers', 'answers']);
     }
     
     public function answers()
@@ -65,5 +65,33 @@ class User extends Authenticatable
     public function is_following($userId)
     {
         return $this->followings()->where('follow_id', $userId)->exists();
+    }
+    
+    public function follow($userId)
+    {
+        $exist = $this->is_following($userId);
+        
+        $its_me = $this->id == $userId;
+        
+        if($exist || $its_me) {
+            return false;
+        }else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    
+    public function unfollow($userId)
+    {
+        $exist = $this->is_following($userId);
+        
+        $its_me = $this->id == $userId;
+        
+        if($exist && !$its_me ){
+            $this->followings()->detach($userId);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -11,16 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QuestionsController@index');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::post('icon', 'UsersController@update');
-
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.get');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'user/{id}'], function () {
+        Route::post('follow', 'UserFollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+    });
+    // Route::get('users/mypage', function () {
+    //     dd(true);
+    // });
+    Route::resource('users' , 'UsersController');
+    Route::resource('questions', 'QuestionsController', ['only' => ['create', 'store', 'destroy']]);
+    Route::get('questions/{id}', 'QuestionsController@followings')->name('questions.followings');
+    Route::resource('answers', 'AnswersController', ['only' => ['index', 'create', 'store', 'destroy']]);
+});
 
