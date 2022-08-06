@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Question;
 
 class User extends Authenticatable
 {
@@ -92,6 +93,28 @@ class User extends Authenticatable
             return true;
         }else{
             return false;
+        }
+    }
+    
+    public function feed_questions()
+    {
+        $userIds = $this->followings()->pluck('users.id')->toArray();
+        
+        return Question::whereIn('user_id', $userids);
+    }
+    
+    public function questions_except_me()
+    {
+        $questions = Question::all();
+        
+        $user = \Auth::user();
+        
+        foreach($questions as $question){
+            if($user->id === $question->user_id){
+                return false;
+            }else{
+                return $question;
+            };
         }
     }
 }

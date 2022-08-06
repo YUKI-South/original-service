@@ -14,7 +14,7 @@ class QuestionsController extends Controller
         if(\Auth::check()){
             $user = \Auth::user();
             
-            $questions = Question::all();
+            $questions = questions_except_me();
             
             $data = [
                 'user' => $user,
@@ -54,6 +54,19 @@ class QuestionsController extends Controller
     
     public function followings()
     {
+        $data = [];
         
+        if(\Auth::check()) {
+            $user = \Auth::user();
+            
+            $questions = $user->feed_questions()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'questions' => $questions,
+                ];
+                
+                return view('questions.followings');
+        }
     }
 }
