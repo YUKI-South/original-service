@@ -9,17 +9,19 @@ class QuestionsController extends Controller
 {
     public function index()
     {
-        $data =[];
+        $data = [];
         
         if(\Auth::check()){
             $user = \Auth::user();
             
-            $questions = questions_except_me();
+            $questions = Question::orderBy('created_at')->paginate(10);
+            
             
             $data = [
                 'user' => $user,
                 'questions' => $questions,
             ];
+            
         };
         
         return view('welcome', $data);
@@ -38,7 +40,14 @@ class QuestionsController extends Controller
                 'content' => $request->content,
             ]);
             
-            return redirect('answers.create');
+            return redirect('questions.show');
+    }
+    
+    public function show($id)
+    {
+        $question = Question::findOrfail($id);
+        
+        return view('questions.show', ['question' => $question]);
     }
     
     public function destroy($id)
@@ -66,16 +75,16 @@ class QuestionsController extends Controller
                 'questions' => $questions,
                 ];
                 
-                return view('questions.followings');
+                return view('questions.followings', $data);
         }
     }
     
-    public function myQuestion()
+    public function myQuestion($id)
     {
         $data = [];
+        $user = \App\User::findOrfail($id);
         
-        if(\Auth::check()){
-            $user = \Auth::user();
+        if(\Auth::id() === $user->id){
             
             $questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
             

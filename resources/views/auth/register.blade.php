@@ -9,6 +9,7 @@
         {!! Form::open(['route' => 'signup.post', 'files' => true]) !!}
             <div class='form-group row mb-5'>
                 {!! Form::file('image')!!}
+
             </div>
                 
             <div class='form-group row mb-5'>

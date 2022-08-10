@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'icon_url',
     ];
 
     /**
@@ -105,16 +105,20 @@ class User extends Authenticatable
     
     public function questions_except_me()
     {
+        $data = [];
         $questions = Question::all();
         
-        $user = \Auth::user();
+        $userId = $this->id;
+    
         
         foreach($questions as $question){
-            if($user->id === $question->user_id){
-                return false;
-            }else{
-                return $question;
+    
+            if($userId === !$question->user_id){
+                
+                $data = ['question' => $question];
+                
             };
         }
+        return $data;
     }
 }

@@ -30,8 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     //     dd(true);
     // });
     Route::resource('users' , 'UsersController');
-    Route::resource('questions', 'QuestionsController', ['only' => ['create', 'store', 'destroy']]);
+    Route::resource('questions', 'QuestionsController', ['only' => ['create', 'store', 'show', 'destroy']]);
     Route::get('followings', 'QuestionsController@followings')->name('questions.followings');
-    Route::resource('answers', 'AnswersController', ['only' => ['index', 'create', 'store', 'destroy']]);
+    Route::resource('answers', 'AnswersController', ['only' => ['index', 'store', 'destroy']]);
 });
 

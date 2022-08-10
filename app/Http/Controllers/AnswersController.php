@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 
 class AnswersController extends Controller
 {
-    public function create()
+    public function index($id)
     {
-        return view('answers.create');
+        $question = \App\Question::findOrfail($id);
+        $data = [];
+        
+        $answers = \App\Answer::orderBy('created_at');
+        
+        return view('answers.index', $data);
+        
     }
     
     public function store(Request $request)
