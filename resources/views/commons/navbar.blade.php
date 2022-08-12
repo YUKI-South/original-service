@@ -1,27 +1,32 @@
-<header class='mb-5'>
-    
-
-            <ul class="nav nav-justified">
-                @if(Auth::check())
-                    <li class='nav-item'>
-                        <a class='nav-link btn btn-lg btn-warning btn-block'  href='/'>ホーム</a>
+<header>
+    @if(Auth::check())
+        <nav class="navbar navbar-dark bg-dark navbar-expand-sm mb-5">
+            <a class="navbar-brand" href="/">Clear up</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('questions.create')}}">質問</a>
                     </li>
-                    <li class='nav-item'>
-                        {!! link_to_route('users.show', 'プロフィール', ['user' => Auth::id()], ['class' => 'btn btn-lg btn-warning btn-block nav-link']) !!}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('questions.followings', ['user' => Auth::id()])}}">フォロー</a>
                     </li>
-                    <li class='nav-item'>
-                        {!! link_to_route('questions.create', '      質問      ', [], ['class' => 'btn btn-lg btn-warning btn-block nav-link'])!!}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{Auth::user()->name}}                    
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {!! link_to_route('myPage.myPage', 'プロフィール', [], ['class' => 'dropdown-item'])!!}
+                            <div class="dropdown-divider"></div>
+                            {!! link_to_route('questions.myQuestion', 'あなたの質問', [], ['class' => 'dropdown-item'])!!}
+                            <div class="dropdown-divider"></div>
+                            {!! link_to_route('logout.get', 'ログアウト', [], ['class' => 'dropdown-item'])!!}
+                        </div>
                     </li>
-                    <li class='nav-item'>
-                        {!! link_to_route('questions.followings', 'フォロー', ['user' => Auth::id()], ['class' => 'btn btn-lg btn-warning btn-block nav-link']) !!}
-                    </li>
-                @else
-                    <li class='nav-item'>
-                    {!! link_to_route('signup.get', '新規登録', [], ['class' => 'btn btn-sm btn-outline-dark nav-link'])!!}
-                    </li>
-                    <li class='nav-item'>
-                    {!! link_to_route('login.get', 'ログイン', [], ['class' => 'btn btn-sm btn-outline-success nav-link'])!!}
-                    </li>
-                @endif
-            </ul>
+                </ul>
+            </div>
+        </nav>
+    @endif
 </header>

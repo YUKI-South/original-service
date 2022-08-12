@@ -40,14 +40,24 @@ class QuestionsController extends Controller
                 'content' => $request->content,
             ]);
             
-            return redirect('questions.show');
+            return redirect()->route('questions.show', []);
     }
     
     public function show($id)
     {
         $question = Question::findOrfail($id);
+    
+        $data = [];
         
-        return view('questions.show', ['question' => $question]);
+        $answers = \App\Answer::all();
+        
+        $data = [
+            'question' => $question,
+            'answers' => $answers,
+            ];
+        
+        return view('questions.show', $data);
+        
     }
     
     public function destroy($id)
@@ -79,21 +89,19 @@ class QuestionsController extends Controller
         }
     }
     
-    public function myQuestion($id)
+    public function myQuestion()
     {
         $data = [];
-        $user = \App\User::findOrfail($id);
+        $user = \Auth::user();
         
-        if(\Auth::id() === $user->id){
+       
+        $questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
             
-            $questions = $user->questions()->orderBy('created_at', 'desc')->paginate(10);
-            
-            $data = [
-                'user' => $user,
-                'questions' => $questions,
-                ];
+        $data = [
+            'user' => $user,
+            'questions' => $questions,
+            ];
                 
-                return view('questions.myQuestion');
-        }
+        return view('questions.myQuestion', $data);
     }
 }

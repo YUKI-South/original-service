@@ -100,7 +100,7 @@ class User extends Authenticatable
     {
         $userIds = $this->followings()->pluck('users.id')->toArray();
         
-        return Question::whereIn('user_id', $userids);
+        return Question::whereIn('user_id', $userIds);
     }
     
     public function questions_except_me()

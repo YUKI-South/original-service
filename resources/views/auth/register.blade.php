@@ -8,8 +8,12 @@
     <div>
         {!! Form::open(['route' => 'signup.post', 'files' => true]) !!}
             <div class='form-group row mb-5'>
-                {!! Form::file('image')!!}
-
+                <div class="col-sm-2">
+                    {!! Form::label('iamge', 'アイコンを登録')!!}
+                </div>
+                <div class="col-sm-10">
+                    {!! Form::file('image')!!}
+                </div>
             </div>
                 
             <div class='form-group row mb-5'>
@@ -50,7 +54,7 @@
                 
             <div class='row'>
                 <div class='col-sm-1 offset-sm-11'>
-                    {!! Form::submit('登録', ['class' => 'btn btn-lg btn-light'])!!}
+                    {!! Form::submit('登録', ['class' => 'btn btn-lg btn-outline-dark'])!!}
                 </div>
             </div>
         {!! Form::close()!!}

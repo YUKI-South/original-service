@@ -27,7 +27,7 @@
                 
             <div class='row'>
                 <div class='col-sm-1 offset-sm-11'>
-                    {!! Form::submit('ログイン', ['class' => 'btn btn-lg btn-light'])!!}
+                    {!! Form::submit('ログイン', ['class' => 'btn btn-lg btn-outline-dark'])!!}
                 </div>
             </div>
         {!! Form::close()!!}
