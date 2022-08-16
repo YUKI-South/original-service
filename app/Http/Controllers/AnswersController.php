@@ -6,27 +6,11 @@ use Illuminate\Http\Request;
 
 class AnswersController extends Controller
 {
-    public function index($id)
-    {
-        $question = \App\Question::findOrfail($id);
-    
-        $data = [];
-        
-        $answers = \App\Answer::orderBy('created_at');
-        
-        $data = [
-            'question' => $question,
-            'answers' => $answers,
-            ];
-        
-        return view('questions.show', $data);
-        
-    }
     
     public function store(Request $request, $id)
     {
          $question = \App\Question::findOrfail($id);
-        
+
         $request->validate(['content' => 'required|max:255']);
         
         $request->user()->answers()->create([
@@ -34,7 +18,7 @@ class AnswersController extends Controller
             'question_id' => $question->id,
         ]);
         
-        return back();
+        return redirect()->route('questions.show', ['question' => $question->id]);
     }
     
     public function destory($id)

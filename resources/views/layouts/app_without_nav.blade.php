@@ -10,11 +10,9 @@
     <body>
             @include('commons.error_messages')
             
-            @include('commons.navbar')
-            <main class="container" id="container">
+            <main class="container">
             @yield('content')
             </main>
-            
         
         
          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
              Route::put('update', 'MyPageController@update')->name('myPage.update');
         });
     
-    Route::get('users' , 'UsersController@show')->name('users.show');
+    Route::get('users/{id}', 'UsersController@show')->name('users.show');
     Route::resource('questions', 'QuestionsController', ['only' => ['create', 'store', 'show', 'destroy']]);
     Route::get('followings', 'QuestionsController@followings')->name('questions.followings');
     Route::resource('questions/{id}/answers', 'AnswersController', ['only' => ['store', 'destroy']]);

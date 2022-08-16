@@ -36,11 +36,11 @@ class QuestionsController extends Controller
     {
         $request->validate(['content' => 'required|max:255']);
         
-        $request->user()->questions()->create([
-                'content' => $request->content,
-            ]);
+        $question = $request->user()->questions()->create([
+            'content' => $request->content,
+        ]);
             
-            return redirect()->route('questions.show', []);
+        return redirect()->route('questions.show', ['question' => $question->id]);
     }
     
     public function show($id)
@@ -68,7 +68,7 @@ class QuestionsController extends Controller
             $question->delete();
         }
         
-        return redirect('/');
+        return redirect()->route('questions.myQuestion');
     }
     
     public function followings()

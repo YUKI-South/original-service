@@ -13,6 +13,8 @@ class UsersController extends Controller
     {
         $user = User::findOrfail($id);
         
+        $user->loadRelationshipCounts();
+        
         return view('users.show', ['user' => $user]);
     }
     

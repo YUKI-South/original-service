@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class MyPageController extends Controller
 {
@@ -35,7 +36,6 @@ class MyPageController extends Controller
         
         $image = $request->icon_url;
         
-      
         if (!is_null($image)) {
             $path = Storage::disk('s3')->putFile('clear-up-bucket', $image, 'public');
             $iconUrl = Storage::disk('s3')->url($path);

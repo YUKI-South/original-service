@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-2 offset-sm-10">
-            {!! link_to_route('myPage.edit', 'プロフィール編集', [], ['class' => 'btn btn-outline-dark'])!!}
-        </div>
+    <div class="text-right mb-5 pb-5">
+        {!! link_to_route('myPage.edit', 'プロフィール編集', [], ['class' => 'btn btn-outline-dark'])!!}
     </div>
     <div class="mb-3">
         @if(!is_null($user->icon_url))
-            <img width="150" class="d-block mx-auto rounded-circle" src="{{ $user->icon_url }}" alt="icon">
+            <img width="150" height="150" class="d-block mx-auto rounded-circle" src="{{ $user->icon_url }}" alt="icon">
         @else
-            <img width="150" class="d-block mx-auto rounded-circle" src="../image/no_icon.jpeg" alt="icon">
+            <img width="150" height="150" class="d-block mx-auto rounded-circle" src="{{ asset('image/no_icon.jpg')}}" alt="icon">
         @endif
     </div>
-    <div class="mb-5">
+    <div class="mb-5 pb-5">
         <h2 class="text-center">{{ $user->name }}</h2>
     </div>
     <div class="mb-5 pb-5">

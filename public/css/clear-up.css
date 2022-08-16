@@ -1,0 +1,15 @@
+.top-page{
+    height: 1000px;
+    background-image: url(../image/top_page.jpg);
+}
+
+#title{
+    margin-top: 200px;
+}
+
+
+#container{
+    height: 980px;
+
+}
+

@@ -28,5 +28,18 @@
                 </ul>
             </div>
         </nav>
+    @else
+        <div class="top-page">
+            <div class="text-right">
+                {!! link_to_route('signup.get', '新規登録', [], ['class' => 'btn btn-sm btn-outline-light'])!!}
+                {!! link_to_route('login.get', 'ログイン', [], ['class' => 'btn btn-sm btn-outline-success'])!!}
+            </div>
+            <div id="title">
+                <h1 class="display-1 text-sm-center text-white">Clear up</h1>
+            </div>
+            <div>
+                <h3 class="text-light text-sm-center mt-5 pt-5">英語の疑問を質問してすぐに解決！</h3>
+            </div>
+        </div>
     @endif
 </header>

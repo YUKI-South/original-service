@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_without_nav')
 
 @section('content')
      <div class='text-center mb-5 mt-5'>
